@@ -1,5 +1,6 @@
 package io.github.alexbogovich.springintro
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -19,16 +20,19 @@ fun main(args: Array<String>) {
     runApplication<SpringIntroApplication>(*args)
 }
 
-
 data class SimpleEntity(
     @Id
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     val id: String? = null,
+
     val name: String
 ) {
     @CreatedDate
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     var created: LocalDateTime = LocalDateTime.now()
 
     @LastModifiedDate
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     var updated: LocalDateTime = LocalDateTime.now()
 }
 
