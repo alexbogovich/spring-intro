@@ -9,7 +9,11 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.mongodb.config.EnableMongoAuditing
 import org.springframework.data.mongodb.repository.MongoRepository
+import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.stereotype.Component
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDateTime
 
 @SpringBootApplication
@@ -49,4 +53,12 @@ class Bootstrap(private val simpleEntityRepo: SimpleEntityRepo): CommandLineRunn
             ))
         }
     }
+}
+
+
+@RestController
+@RequestMapping("/entity")
+class SimpleEntityController(private val simpleEntityRepo: SimpleEntityRepo) {
+    @GetMapping
+    fun all() = simpleEntityRepo.findAll()
 }
